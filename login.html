@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - HomeoEase</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* CSS Variables from Home Page */
+    :root {
+      --primary: #2a7de1;
+      --secondary: #38b2ac;
+      --accent: #f56565;
+      --light: #f8fafc;
+      --dark: #2d3748;
+      --gray: #718096;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    /* Global Styles from Home Page */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: #f9fafb;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header & Navigation from Home Page */
+    header {
+      background: white;
+      box-shadow: var(--shadow);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .logo i {
+      margin-right: 10px;
+      color: var(--secondary);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links li {
+      margin-left: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-links a:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover:after {
+      width: 100%;
+    }
+
+    .nav-links .btn {
+      padding: 8px 20px;
+      margin-left: 20px;
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: var(--dark);
+    }
+
+    /* Hero Section Adapted for Login */
+    .hero {
+      padding: 180px 0 100px;
+      background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/90878f33-3d75-42f0-aedb-1ac2b61b55c4.png') no-repeat center center/cover;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: var(--gray);
+    }
+
+    /* Login Container Styled Like Home Page Cards */
+    .login-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 40px;
+      border-radius: 15px;
+      background-color: #fff;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .login-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-container h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .login-container h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 4px;
+      background: var(--secondary);
+    }
+
+    .form-label {
+      color: var(--dark);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: var(--transition);
+      border: 1px solid #e2e8f0;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+    }
+
+    .invalid-feedback {
+      color: var(--accent);
+    }
+
+    .btn-login {
+      background-color: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      padding: 12px 28px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+      width: 100%;
+    }
+
+    .btn-login:hover {
+      background: #1d68c5;
+      transform: translateY(-3px);
+    }
+
+    .register-link {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .register-link a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+
+    .modal-content {
+      border-radius: 15px;
+    }
+
+    /* Responsive Styles from Home Page */
+    @media (max-width: 992px) {
+      .hero {
+        padding: 150px 0 80px;
+      }
+      
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        box-shadow: var(--shadow);
+      }
+      
+      .nav-links.active {
+        left: 0;
+      }
+      
+      .nav-links li {
+        margin: 15px 0;
+      }
+      
+      .login-container {
+        padding: 30px 20px;
+        margin: 20px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .login-container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header & Navigation (Copied from Home Page, Adjusted for Login Context) -->
+  <header>
+    <div class="container">
+      <nav>
+        <a href="signupsuccess.html" class="logo">
+          <i class="fas fa-leaf"></i> Homoeo Ease Clinic
+        </a>
+        
+        <div class="hamburger" id="hamburger">
+          <i class="fas fa-bars"></i>
+        </div>
+        
+        <ul class="nav-links" id="nav-links">
+          <li><a href="signupsuccess.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="profile.html">Your Profile</a></li>
+          <li><a href="appointment.html" class="btn" style="background: var(--accent);">Book Appointment</a></li>
+          <!-- Removed "Log Out" since this is login page; can add back if needed -->
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section Adapted for Login -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Login to Your Account</h1>
+        <p>Welcome back to Homoeo Ease Clinic. Access your personalized health journey with natural healing solutions.</p>
+        
+        <!-- Login Form -->
+        <div class="login-container">
+          <h2><i class="fas fa-sign-in-alt me-2" style="color: var(--secondary);"></i>Login</h2>
+          <form id="loginForm" novalidate>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="email" name="email" required />
+              <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+            <div class="mb-4">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" name="password" required />
+              <div class="invalid-feedback">Please enter your password.</div>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-login">Login</button>
+            </div>
+          </form>
+          <div class="register-link">
+            <p>Don't have an account? <a href="index.html">Register here</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Login Status Modal (Kept from Original) -->
+  <div class="modal fade" id="loginAlertModal" tabindex="-1" aria-labelledby="loginAlertLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginAlertLabel">Login Status</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="loginAlertBody">
+          <!-- Login message goes here -->
+        </div>
+        <div class="modal-footer" id="loginAlertFooter">
+          <!-- Footer buttons inserted dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Navigation Script from Home Page -->
+  <script>
+    // Mobile Navigation Toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      
+      // Change icon
+      const icon = hamburger.querySelector('i');
+      if (navLinks.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+    
+    // Close mobile nav when clicking on a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        hamburger.querySelector('i').classList.remove('fa-times');
+        hamburger.querySelector('i').classList.add('fa-bars');
+      });
+    });
+  </script>
+
+  <!-- Login Script (Kept from Original) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('loginForm');
+      const modal = new bootstrap.Modal(document.getElementById('loginAlertModal'));
+      const modalBody = document.getElementById('loginAlertBody');
+      const modalFooter = document.getElementById('loginAlertFooter');
+
+      function showLoginAlert(message, success = false) {
+        modalBody.textContent = message;
+        modalFooter.innerHTML = '';
+
+        const okBtn = document.createElement('button');
+        okBtn.type = 'button';
+        okBtn.className = 'btn btn-primary';
+        okBtn.setAttribute('data-bs-dismiss', 'modal');
+        okBtn.textContent = 'OK';
+        modalFooter.appendChild(okBtn);
+
+        if (!success) {
+          const reloginBtn = document.createElement('button');
+          reloginBtn.type = 'button';
+          reloginBtn.className = 'btn btn-secondary ms-2';
+          reloginBtn.textContent = 'Re-login';
+          reloginBtn.addEventListener('click', () => {
+            modal.hide();
+            document.getElementById('password').value = '';
+            document.getElementById('password').focus();
+          });
+          modalFooter.appendChild(reloginBtn);
+        }
+
+        modal.show();
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!form.checkValidity()) {
+          form.classList.add('was-validated');
+          return;
+        }
+
+        const email = form.email.value.trim();
+        const password = form.password.value;
+
+        try {
+          const response = await fetch('http://localhost:3000/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password }),
+});
+
+
+          if (response.ok) {
+            const data = await response.json();
+
+            // ✅ Save user info in localStorage
+            localStorage.setItem("userEmail", data.user.email);
+            localStorage.setItem("userName", data.user.name);
+            localStorage.setItem("userPhone", data.user.phone);
+
+            showLoginAlert('✅ Login successful!', true);
+
+            // Redirect to profile after modal closes
+            const modalEl = document.getElementById('loginAlertModal');
+            modalEl.addEventListener('hidden.bs.modal', () => {
+              window.location.href = 'signupsuccess.html';
+            }, { once: true });
+          } else {
+            const errorData = await response.json();
+            showLoginAlert(`❌ Login failed: ${errorData.message || 'Invalid credentials.'}`, false);
+          }
+
+        } catch (err) {
+          console.error(err);
+          showLoginAlert('❌ Something went wrong. Please try again later.', false);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
